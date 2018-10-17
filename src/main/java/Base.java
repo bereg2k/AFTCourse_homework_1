@@ -36,6 +36,7 @@ public class Base {
 
     /**
      * Основной метод определения даты рождения по полученным данным от пользователя
+     *
      * @param result посчитанный результат пользователя
      */
     private static void guessBirthday(int result) {
@@ -54,7 +55,8 @@ public class Base {
 
     /**
      * Метод перевода искомого 3-х или 4-х-значного числа в дату рождения (месяц и день).
-     * @param number измененное число, полученное от пользователя
+     *
+     * @param number        измененное число, полученное от пользователя
      * @param digitsCounter количество цифр в числе, 3 или 4
      * @return дата в удобном формате (dd MMMM или d MMMM)
      */
@@ -72,8 +74,16 @@ public class Base {
             int birthDay = firstNumber * 10 + secondNumber; // вычисляем день рождения
             int birthMonth = thirdNumber * 10 + fourthNumber; // вычисляем месяц рождения
 
-            //возвращаем результат в удобном для чтения формате
+            //создаем доп.переменную даты (2012 год выбран как високосный, чтобы программа учла 29 февраля)
             LocalDate date = LocalDate.of(2012, birthMonth, birthDay);
+
+            //в случае если у пользователя сегодня день рождения -- поздравляем его :)
+            LocalDate currentDate = LocalDate.now();
+            if ((currentDate.getMonth().getValue() == birthMonth) && (currentDate.getDayOfMonth() == birthDay)) {
+                System.out.println("Опачки! C днем рождения, малыш!");
+            }
+
+            //возвращаем результат в удобном для чтения формате
             return date.format(DateTimeFormatter.ofPattern("dd MMMM"));
 
         } else {  //для трехзначного числа
@@ -85,15 +95,23 @@ public class Base {
             int birthDay = firstNumber; // вычисляем день рождения
             int birthMonth = secondNumber * 10 + thirdNumber; // вычисляем месяц рождения
 
-            //возвращаем результат в удобном для чтения формате
+            //создаем доп.переменную даты (2012 год выбран как високосный, чтобы программа учла 29 февраля)
             LocalDate date = LocalDate.of(2012, birthMonth, birthDay);
+
+            //в случае если у пользователя сегодня день рождения -- поздравляем его :)
+            LocalDate currentDate = LocalDate.now();
+            if ((currentDate.getMonth().getValue() == birthMonth) && (currentDate.getDayOfMonth() == birthDay)) {
+                System.out.println("Опачки! C днем рождения, малыш!");
+            }
+
             return date.format(DateTimeFormatter.ofPattern("d MMMM"));
         }
     }
 
     /**
      * Метод перевода искомого 3-х или 4-х-значного числа в знак зодиака.
-     * @param number измененное число, полученное от пользователя
+     *
+     * @param number        измененное число, полученное от пользователя
      * @param digitsCounter количество цифр в числе, 3 или 4
      * @return знак Зодиака в виде строки
      */
@@ -129,8 +147,9 @@ public class Base {
 
     /**
      * Метод вычисления знака Зодиака по дню и месяцу рождения.
+     *
      * @param dayOfTheMonth день рождения
-     * @param month месяц рождения
+     * @param month         месяц рождения
      * @return знак Зодиака в виде строки
      */
     private static String calculateZodiac(int dayOfTheMonth, int month) {
