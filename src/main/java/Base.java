@@ -2,6 +2,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Программа реализует простой математический фокус для угадывания дня рождения.
+ * Полное описание фокуса:
+ * см. "2. Угаданный день рождения" по ссылке:
+ * https://mel.fm/poleznyye_navyki/5379208-math_focus
+ */
 public class Base {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
