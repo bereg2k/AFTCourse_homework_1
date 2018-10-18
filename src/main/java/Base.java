@@ -27,8 +27,20 @@ public class Base {
         System.out.print("Прибавить к этому номер своего месяца рождения (июль — 7, январь — 1)... ");
         scanner.nextLine();
 
-        System.out.println("Что у тебя получилось? Введи ответ и нажми Enter. ");
-        int result = scanner.nextInt(); //ввод полученного числа
+        boolean correctInput; //доп.переменная для зацикливания ввода (до получения корректных данных)
+        int result = 0;
+        do { //зацикливание пользовательского ввода для обеспечения корректных данных
+            try {
+                System.out.println("Что у тебя получилось? Введи ответ и нажми Enter. ");
+                //ввод полученного числа (парсинг из строки нужен т.к. nextInt некорректно работает в случае исключения)
+                result = Integer.parseInt(scanner.next());
+                correctInput = true;
+            } catch (Exception e) { //обработка исключений при вводе некорректных данных (не целых чисел)
+                System.out.println("Малыш, кроме целых чисел вводить ничего нельзя! Давай ещё разок?");
+                correctInput = false;
+            }
+
+        } while (!correctInput);
 
         //вызываем метод угадывания даты рождения и знака зодиака по введенному числу
         guessBirthday(result);
@@ -42,7 +54,7 @@ public class Base {
     private static void guessBirthday(int result) {
         int secretResult = result - 250;
 
-        if (secretResult > 3103 || secretResult < 101) {    //некорректный расчёт за пределами возможных дат
+        if (secretResult > 3112 || secretResult < 101) {    //некорректный расчёт за пределами возможных дат
             System.err.println("Похоже ты ошибся в вычислениях, малыш! Попробуй ещё разок как-нибудь!");
         } else if (secretResult / 1000 != 0) {              //четырёхзначное число
             System.out.println("Твой день рождения - " + convertNumberToBirthday(secretResult, 4) + "!");
