@@ -32,11 +32,11 @@ public class Base {
         do { //зацикливание пользовательского ввода для обеспечения корректных данных
             try {
                 System.out.println("Что у тебя получилось? Введи ответ и нажми Enter. ");
-                //ввод полученного числа (парсинг из строки нужен т.к. nextInt некорректно работает в случае исключения)
-                result = Integer.parseInt(scanner.next());
+                result = scanner.nextInt();
                 correctInput = true;
             } catch (Exception e) { //обработка исключений при вводе некорректных данных (не целых чисел)
                 System.out.println("Малыш, кроме целых чисел вводить ничего нельзя! Давай ещё разок?");
+                scanner.next(); // сброс введенного значения
                 correctInput = false;
             }
 
@@ -54,7 +54,8 @@ public class Base {
     private static void guessBirthday(int result) {
         int secretResult = result - 250;
 
-        if (secretResult > 3112 || secretResult < 101) {    //некорректный расчёт за пределами возможных дат
+        if (secretResult > 3112 || secretResult < 101 || secretResult % 100 == 0 || secretResult % 100 > 12) {
+            //некорректный расчёт за пределами возможных дат
             System.err.println("Похоже ты ошибся в вычислениях, малыш! Попробуй ещё разок как-нибудь!");
         } else if (secretResult / 1000 != 0) {              //четырёхзначное число
             System.out.println("Твой день рождения - " + convertNumberToBirthday(secretResult, 4) + "!");
